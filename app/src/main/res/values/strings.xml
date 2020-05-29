@@ -1,0 +1,19 @@
+<resources>
+    <string name="app_name">DHidraulic</string>
+
+    <string name="num_pavimentos">Sua edificação terá quantos pavimentos?</string>
+    <string name="num_pessoas">Quantas pessoas habitaram sua edificação?</string>
+    <string name="num_banheiros">Quantos banheiros haverão em sua edificação?</string>
+    <string name="num_cozinhas">Quantas cozinhas haverão em sua edificação?</string>
+    <string name="num_area_servico">Quantas áreas de serviço haverão em sua edificação?</string>
+
+    <string name="banheiro_acima">Os banheiros serão um acima do outro?</string>
+    <string name="equipamentos_banheiro">“Para os banheiros: Quais e quantos equipamentos hidráulicos haverão?</string>
+
+    <string name="cozinha_acima">As cozinhas serão uma acima do outra?</string>
+    <string name="equipamentos_cozinha">“Para a cozinha 1: Quais e quantos equipamentos hidráulicos haverão?</string>
+
+    <string name="area_acima">As áreas de serviço serão uma acima do outra ?</string>
+    <string name="equipamentos_area">Para área de serviço 1: Quais e quantos equipamentos hidráulicos haverão?</string>
+    <string name="btn_ctn">Continuar</string>
+</resources>
