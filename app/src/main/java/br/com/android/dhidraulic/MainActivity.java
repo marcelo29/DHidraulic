@@ -62,7 +62,7 @@ public class MainActivity extends AppCompatActivity {
             flag = false;
         }
 
-        if(edtNumAreaDeServico.getText().equals("") || Integer.parseInt(edtNumAreaDeServico.getText().toString())==0){
+        if(edtNumAreaDeServico.getText().toString().equals("") || Integer.parseInt(edtNumAreaDeServico.getText().toString())==0){
             edtNumAreaDeServico.setError(Util.AVISO_CAMPO_OBRIGATORIO);
             flag = false;
         }
