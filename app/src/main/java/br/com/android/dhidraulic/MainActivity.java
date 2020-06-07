@@ -1,12 +1,14 @@
 package br.com.android.dhidraulic;
 
 import android.content.Context;
+import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import br.com.android.Util;
+import br.com.android.dao.Db;
 import br.com.android.domain.EstruturaCasa;
 
 public class MainActivity extends AppCompatActivity {
@@ -15,6 +17,9 @@ public class MainActivity extends AppCompatActivity {
     Button fabCtn;
     EstruturaCasa casa;
     Context ctx;
+    Db db;
+    SQLiteDatabase escrita;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -27,6 +32,17 @@ public class MainActivity extends AppCompatActivity {
         edtNumBanheiro = (EditText) findViewById(R.id.edtNumBanheiro);
         edtNumAreaDeServico = (EditText) findViewById(R.id.edtNumAreaDeServico);
         fabCtn = (Button) findViewById(R.id.btnCtn);
+
+        db = new Db(this);
+
+        // pega permissao de escrita no banco
+        escrita = db.getWritableDatabase();
+
+        // Se o banco nao existir
+        if (!db.doesDatabaseExist(this, db.getDatabaseName())) {
+            // cria e popula o banco
+            db.onCreate(escrita);
+        }
     }
 
     @Override
@@ -47,7 +63,7 @@ public class MainActivity extends AppCompatActivity {
                     casa.setNumCozinha(Integer.parseInt(String.valueOf(edtNumCozinha.getText())));
                     casa.setNumPessoas(Integer.parseInt(String.valueOf(edtNumPessoas.getText())));
 
-
+                    db.insereCasa(escrita, casa);
                 }
             }
         });
