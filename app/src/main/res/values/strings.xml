@@ -16,4 +16,8 @@
     <string name="area_acima">As áreas de serviço serão uma acima do outra ?</string>
     <string name="equipamentos_area">Para área de serviço 1: Quais e quantos equipamentos hidráulicos haverão?</string>
     <string name="btn_ctn">Continuar</string>
+    <string name="title_activity_menu">MenuActivity</string>
+    <string name="tab_text_1">Tab 1</string>
+    <string name="tab_text_2">Tab 2</string>
+    <string name="cozinha">Cozinha</string>
 </resources>

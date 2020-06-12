@@ -1,6 +1,7 @@
 package br.com.android.dhidraulic;
 
 import android.content.Context;
+import android.content.Intent;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
@@ -64,6 +65,9 @@ public class MainActivity extends AppCompatActivity {
                     casa.setNumPessoas(Integer.parseInt(String.valueOf(edtNumPessoas.getText())));
 
                     db.insereCasa(escrita, casa);
+
+                    Intent intent = new Intent(MainActivity.this, MenuActivity.class);
+                    startActivity(intent);
                 }
             }
         });
