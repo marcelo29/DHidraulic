@@ -17,12 +17,12 @@ public class Db extends SQLiteOpenHelper {
     // nome do banco
     public static final String DATABASE = "db_hidraulic";
     // versao
-    public static final int VERSAO = 1;
+    public static final int VERSAO = 3;
     // para exibicao no log cat
     private static final String TAG = "appHidraulic";
 
     // tabelas do banco
-    private static String tbCasa = "casa";
+    private static String tbCasa = "casa", tbBanheiro = "banheiro";
 
     public Db(Context context) {
         super(context, DATABASE, null, VERSAO);
@@ -33,6 +33,11 @@ public class Db extends SQLiteOpenHelper {
         // string p criar a tabela no banco de dados
         String ddl = "create table if not exists " + tbCasa + "(_id integer primary key autoincrement, "
                 + "numPessoas int, numPavimentos int, numCozinha int, numAreaServico int, numBanheiro int)";
+
+        sqLiteDatabase.execSQL(ddl);
+
+        ddl = "create table if not exists " + tbBanheiro + "(_id integer primary key autoincrement, " +
+                "numToneiras int, numChuveiros int, numPrivadas int, numDuchas int)";
 
         sqLiteDatabase.execSQL(ddl);
     }
@@ -72,12 +77,12 @@ public class Db extends SQLiteOpenHelper {
 
     // retorna o id da tabela
     public int retornaCampoTabela(String campo, String tabela) {
-        String sql = "select campo from " + tabela;
+        String sql = "select " + campo + " from " + tabela;
 
         Cursor cursor = getReadableDatabase().rawQuery(sql, null);
 
         try {
-            cursor.moveToFirst();
+            cursor.moveToLast();
             return cursor.getInt(0);
         } catch (Exception e) {
             Log.e("", e.getMessage());

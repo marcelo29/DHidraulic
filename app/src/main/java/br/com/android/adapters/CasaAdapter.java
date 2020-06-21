@@ -23,6 +23,7 @@ public class CasaAdapter extends RecyclerView.Adapter<CasaAdapter.CasaViewHolder
     ArrayList<Integer> fotos = new ArrayList<>();
     ArrayList<String> titulos = new ArrayList<>();
     public static Context ctx;
+
     public CasaAdapter(Context ctx) {
         this.ctx = ctx;
         fotos.add(R.drawable.area);

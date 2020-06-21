@@ -11,19 +11,15 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".BanheiroActivity"></activity>
+        <activity
+            android:name=".BanheiroActivity"
+            android:label="@string/banheiro"
+            android:screenOrientation="landscape" />
         <activity
             android:name=".MenuActivity"
             android:configChanges="orientation|keyboardHidden"
             android:label="@string/title_activity_menu"
-            android:screenOrientation="landscape"
-            android:theme="@style/AppTheme.NoActionBar">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
-        </activity>
+            android:screenOrientation="landscape" />
         <activity
             android:name=".MainActivity"
             android:configChanges="orientation|keyboardHidden"
