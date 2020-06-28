@@ -1,108 +1,206 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
+<ScrollView android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#EDF0F1"
-    tools:context=".BanheiroActivity">
+    xmlns:android="http://schemas.android.com/apk/res/android">
 
-    <Spinner
-        android:id="@+id/spnIdBanheiro"
+    <android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        app:layout_constraintTop_toTopOf="parent" />
+        android:layout_height="match_parent"
+        android:background="#EDF0F1"
+        android:isScrollContainer="true"
+        tools:context=".BanheiroActivity">
 
-    <LinearLayout
-        android:id="@+id/llTorneira"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="32dp"
-        android:orientation="horizontal"
-        app:layout_constraintTop_toTopOf="@id/spnIdBanheiro">
-
-        <android.support.v7.widget.AppCompatImageView
-            android:id="@+id/imgTorneira"
-            android:layout_width="176dp"
-            android:layout_height="115dp"
-            android:layout_marginTop="5dp"
-            app:srcCompat="@drawable/torneira" />
-
-        <android.support.design.widget.FloatingActionButton
-            android:id="@+id/fabAddTorneira"
-            android:layout_width="wrap_content"
+        <Spinner
+            android:id="@+id/spnIdBanheiro"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="5dp"
-            android:clickable="true"
-            android:foregroundGravity="bottom"
-            app:backgroundTint="@color/colorPrimary"
-            app:srcCompat="@drawable/baseline_add_white_18dp" />
+            app:layout_constraintTop_toTopOf="parent" />
 
-        <android.support.design.widget.FloatingActionButton
-            android:id="@+id/fabSubTorneira"
-            android:layout_width="wrap_content"
+        <LinearLayout
+            android:id="@+id/llTorneira"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="5dp"
-            android:layout_marginTop="5dp"
-            android:clickable="true"
-            app:backgroundTint="@color/colorPrimary"
-            app:srcCompat="@drawable/baseline_remove_white_18dp" />
+            android:layout_marginTop="32dp"
+            android:orientation="horizontal"
+            app:layout_constraintTop_toTopOf="@id/spnIdBanheiro">
 
-        <TextView
-            android:id="@+id/txtTorneira"
-            android:layout_width="wrap_content"
+            <android.support.v7.widget.AppCompatImageView
+                android:id="@+id/imgTorneira"
+                android:layout_width="176dp"
+                android:layout_height="115dp"
+                android:layout_marginTop="5dp"
+                app:srcCompat="@drawable/torneira" />
+
+            <android.support.design.widget.FloatingActionButton
+                android:id="@+id/fabAddTorneira"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="5dp"
+                android:clickable="true"
+                android:foregroundGravity="bottom"
+                app:backgroundTint="@color/colorPrimary"
+                app:srcCompat="@drawable/baseline_add_white_18dp" />
+
+            <android.support.design.widget.FloatingActionButton
+                android:id="@+id/fabSubTorneira"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="5dp"
+                android:layout_marginTop="5dp"
+                android:clickable="true"
+                app:backgroundTint="@color/colorPrimary"
+                app:srcCompat="@drawable/baseline_remove_white_18dp" />
+
+            <TextView
+                android:id="@+id/txtTorneira"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:foregroundGravity="right"
+                android:paddingLeft="20dp"
+                android:text="0"
+                android:textSize="56sp" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/llChuveiro"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:foregroundGravity="right"
-            android:paddingLeft="20dp"
-            android:text="0"
-            android:textSize="56sp" />
+            android:orientation="horizontal"
+            app:layout_constraintTop_toBottomOf="@+id/llTorneira"
+            tools:layout_editor_absoluteX="199dp">
 
-    </LinearLayout>
+            <android.support.v7.widget.AppCompatImageView
+                android:id="@+id/imgChuveiro"
+                android:layout_width="176dp"
+                android:layout_height="115dp"
+                android:layout_marginTop="5dp"
+                app:srcCompat="@drawable/chuveiro" />
 
-    <LinearLayout
-        android:id="@+id/llChuveiro"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="8dp"
-        android:orientation="horizontal"
-        app:layout_constraintTop_toBottomOf="@+id/llTorneira"
-        tools:layout_editor_absoluteX="199dp">
+            <android.support.design.widget.FloatingActionButton
+                android:id="@+id/fabAddChuveiro"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="5dp"
+                android:clickable="true"
+                android:foregroundGravity="bottom"
+                app:backgroundTint="@color/colorPrimary"
+                app:srcCompat="@drawable/baseline_add_white_18dp" />
 
-        <android.support.v7.widget.AppCompatImageView
-            android:id="@+id/imgChuveiro"
-            android:layout_width="176dp"
-            android:layout_height="115dp"
-            android:layout_marginTop="5dp"
-            app:srcCompat="@drawable/chuveiro" />
+            <android.support.design.widget.FloatingActionButton
+                android:id="@+id/fabSubChuveiro"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="5dp"
+                android:layout_marginTop="5dp"
+                android:clickable="true"
+                app:backgroundTint="@color/colorPrimary"
+                app:srcCompat="@drawable/baseline_remove_white_18dp" />
 
-        <android.support.design.widget.FloatingActionButton
-            android:id="@+id/fabAddChuveiro"
-            android:layout_width="wrap_content"
+            <TextView
+                android:id="@+id/txtChuveiro"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:foregroundGravity="right"
+                android:paddingLeft="20dp"
+                android:text="0"
+                android:textSize="56sp" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/llPrivada"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="5dp"
-            android:clickable="true"
-            android:foregroundGravity="bottom"
-            app:backgroundTint="@color/colorPrimary"
-            app:srcCompat="@drawable/baseline_add_white_18dp" />
+            android:orientation="horizontal"
+            app:layout_constraintTop_toBottomOf="@id/llChuveiro"
+            tools:layout_editor_absoluteX="345dp">
 
-        <android.support.design.widget.FloatingActionButton
-            android:id="@+id/fabSubChuveiro"
-            android:layout_width="wrap_content"
+            <android.support.v7.widget.AppCompatImageView
+                android:id="@+id/imgPrivada"
+                android:layout_width="176dp"
+                android:layout_height="115dp"
+                android:layout_marginTop="5dp"
+                app:srcCompat="@drawable/privada" />
+
+            <android.support.design.widget.FloatingActionButton
+                android:id="@+id/fabAddPrivada"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="5dp"
+                android:clickable="true"
+                android:foregroundGravity="bottom"
+                app:backgroundTint="@color/colorPrimary"
+                app:srcCompat="@drawable/baseline_add_white_18dp" />
+
+            <android.support.design.widget.FloatingActionButton
+                android:id="@+id/fabSubPrivada"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="5dp"
+                android:layout_marginTop="5dp"
+                android:clickable="true"
+                app:backgroundTint="@color/colorPrimary"
+                app:srcCompat="@drawable/baseline_remove_white_18dp" />
+
+            <TextView
+                android:id="@+id/txtPrivada"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:foregroundGravity="right"
+                android:paddingLeft="20dp"
+                android:text="0"
+                android:textSize="56sp" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/llDucha"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="5dp"
-            android:layout_marginTop="5dp"
-            android:clickable="true"
-            app:backgroundTint="@color/colorPrimary"
-            app:srcCompat="@drawable/baseline_remove_white_18dp" />
+            android:orientation="horizontal"
+            app:layout_constraintTop_toBottomOf="@id/llPrivada"
+            tools:layout_editor_absoluteX="345dp">
 
-        <TextView
-            android:id="@+id/txtChuveiro"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:foregroundGravity="right"
-            android:paddingLeft="20dp"
-            android:text="0"
-            android:textSize="56sp" />
-    </LinearLayout>
+            <android.support.v7.widget.AppCompatImageView
+                android:id="@+id/imgDucha"
+                android:layout_width="176dp"
+                android:layout_height="115dp"
+                android:layout_marginTop="5dp"
+                app:srcCompat="@drawable/ducha" />
 
-</android.support.constraint.ConstraintLayout>
+            <android.support.design.widget.FloatingActionButton
+                android:id="@+id/fabAddDucha"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="5dp"
+                android:clickable="true"
+                android:foregroundGravity="bottom"
+                app:backgroundTint="@color/colorPrimary"
+                app:srcCompat="@drawable/baseline_add_white_18dp" />
+
+            <android.support.design.widget.FloatingActionButton
+                android:id="@+id/fabSubDucha"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="5dp"
+                android:layout_marginTop="5dp"
+                android:clickable="true"
+                app:backgroundTint="@color/colorPrimary"
+                app:srcCompat="@drawable/baseline_remove_white_18dp" />
+
+            <TextView
+                android:id="@+id/txtDucha"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:foregroundGravity="right"
+                android:paddingLeft="20dp"
+                android:text="0"
+                android:textSize="56sp" />
+        </LinearLayout>
+
+
+    </android.support.constraint.ConstraintLayout>
+</ScrollView>
