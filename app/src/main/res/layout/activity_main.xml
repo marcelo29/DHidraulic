@@ -78,7 +78,7 @@
                 android:id="@+id/btnCtn"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:background="#DC65F0"
+                android:background="@color/colorPrimary"
                 android:text="@string/btn_ctn"
                 android:textColor="@android:color/background_light"
                 app:layout_constraintBottom_toBottomOf="parent"
