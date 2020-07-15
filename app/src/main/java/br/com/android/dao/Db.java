@@ -17,12 +17,12 @@ public class Db extends SQLiteOpenHelper {
     // nome do banco
     public static final String DATABASE = "db_hidraulic";
     // versao
-    public static final int VERSAO = 3;
+    public static final int VERSAO = 4;
     // para exibicao no log cat
     private static final String TAG = "appHidraulic";
 
     // tabelas do banco
-    private static String tbCasa = "casa", tbBanheiro = "banheiro";
+    private static String tbCasa = "casa", tbBanheiro = "banheiro", tbCasaBanheiro = "casa_banheiro";
 
     public Db(Context context) {
         super(context, DATABASE, null, VERSAO);
@@ -32,13 +32,17 @@ public class Db extends SQLiteOpenHelper {
     public void onCreate(SQLiteDatabase sqLiteDatabase) {
         // string p criar a tabela no banco de dados
         String ddl = "create table if not exists " + tbCasa + "(_id integer primary key autoincrement, "
-                + "numPessoas int, numPavimentos int, numCozinha int, numAreaServico int, numBanheiro int)";
-
+                + "num_Pessoas int, num_pavimentos int, num_cozinha int, num_area_servico int, num_banheiro int)";
         sqLiteDatabase.execSQL(ddl);
 
         ddl = "create table if not exists " + tbBanheiro + "(_id integer primary key autoincrement, " +
-                "numToneiras int, numChuveiros int, numPrivadas int, numDuchas int)";
+                "num_toneiras int, num_chuveiros int, num_privadas int, num_duchas int, num_banheira int, num_bebedouro int, " +
+                "num_tanque int, num_MC int)";
+        sqLiteDatabase.execSQL(ddl);
 
+        ddl = "create table if not exists " + tbCasaBanheiro +  "(_id integer primary key autoincrement, " +
+                "id_casa int, id_banheiro int, foreign key(id_casa) references casa(_id), " +
+                "foreign key(id_banheiro) references banheiro(_id))";
         sqLiteDatabase.execSQL(ddl);
     }
 
