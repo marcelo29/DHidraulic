@@ -22,4 +22,5 @@
 
     <string name="cozinha">Cozinha</string>
     <string name="banheiro">Banheiro</string>
+    <string name="prvValvula">A privada é de válvula ?</string>
 </resources>

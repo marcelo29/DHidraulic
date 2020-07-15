@@ -61,7 +61,6 @@
                 android:paddingLeft="20dp"
                 android:text="0"
                 android:textSize="56sp" />
-
         </LinearLayout>
 
         <LinearLayout
@@ -161,7 +160,7 @@
                 android:layout_weight="1"
                 android:gravity="right"
                 android:hint="Privadas de válvula possuem botão na parede."
-                android:text="A priva é de válvula ?" />
+                android:text="@string/prvValvula" />
 
         </LinearLayout>
 
