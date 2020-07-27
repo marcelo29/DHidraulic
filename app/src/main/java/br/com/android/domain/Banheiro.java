@@ -1,9 +1,15 @@
 package br.com.android.domain;
 
 public class Banheiro {
-    private int numTorneira, numPrivada, numDucha, numBanheira, numBebedouro, numTanque, numMC, numChuveiro;
+    private int id, numTorneira, numPrivada, numDucha, numBanheira, numBebedouro, numTanque, numMC, numChuveiro;
     private boolean valvula;
 
+    public Banheiro(int id) {
+        this.id = id;
+    }
+    public Banheiro() {
+
+    }
     public int getNumTorneira() {
         return numTorneira;
     }

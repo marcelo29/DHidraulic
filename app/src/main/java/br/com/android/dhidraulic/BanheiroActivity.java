@@ -11,12 +11,13 @@ import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.Spinner;
+import android.widget.Switch;
 import android.widget.TextView;
 
 import java.util.ArrayList;
 
-import br.com.android.Util;
 import br.com.android.dao.Db;
+import br.com.android.domain.Banheiro;
 
 public class BanheiroActivity extends AppCompatActivity {
     private Spinner spnIdBanheiro;
@@ -27,6 +28,8 @@ public class BanheiroActivity extends AppCompatActivity {
     FloatingActionButton fabSubTorneira, fabSubChuveiro, fabSubBebedouro, fabSubPrivada, fabSubDucha, fabSubBanheira, fabSubTanque, fabSubMC;
     Button btnCtn;
     Integer numBanheiro;
+    Switch swtValvula;
+    Banheiro banheiro;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -39,7 +42,7 @@ public class BanheiroActivity extends AppCompatActivity {
         escrita = db.getWritableDatabase();
 
         spnIdBanheiro = (Spinner) findViewById(R.id.spnIdBanheiro);
-
+        swtValvula = (Switch) findViewById(R.id.swtValvula);
         txtBanheira = (TextView) findViewById(R.id.txtBanheira);
         txtBebedouro = (TextView) findViewById(R.id.txtBebedouro);
         txtChuveiro = (TextView) findViewById(R.id.txtChuveiro);
