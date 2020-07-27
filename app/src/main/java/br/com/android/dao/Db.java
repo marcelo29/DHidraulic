@@ -17,7 +17,7 @@ public class Db extends SQLiteOpenHelper {
     // nome do banco
     public static final String DATABASE = "db_hidraulic";
     // versao
-    public static final int VERSAO = 4;
+    public static final int VERSAO = 5;
     // para exibicao no log cat
     private static final String TAG = "appHidraulic";
 
@@ -32,12 +32,12 @@ public class Db extends SQLiteOpenHelper {
     public void onCreate(SQLiteDatabase sqLiteDatabase) {
         // string p criar a tabela no banco de dados
         String ddl = "create table if not exists " + tbCasa + "(_id integer primary key autoincrement, "
-                + "num_Pessoas int, num_pavimentos int, num_cozinha int, num_area_servico int, num_banheiro int)";
+                + "num_pessoas int, num_pavimentos int, num_cozinha int, num_area_servico int, num_banheiro int)";
         sqLiteDatabase.execSQL(ddl);
 
         ddl = "create table if not exists " + tbBanheiro + "(_id integer primary key autoincrement, " +
                 "num_toneiras int, num_chuveiros int, num_privadas int, num_duchas int, num_banheira int, num_bebedouro int, " +
-                "num_tanque int, num_MC int)";
+                "num_tanque int, num_MC int, boolean valvula)";
         sqLiteDatabase.execSQL(ddl);
 
         ddl = "create table if not exists " + tbCasaBanheiro +  "(_id integer primary key autoincrement, " +
@@ -69,11 +69,11 @@ public class Db extends SQLiteOpenHelper {
     public void insereCasa(SQLiteDatabase db, EstruturaCasa casa) {
         ContentValues values = new ContentValues();
 
-        values.put("numPavimentos", casa.getNumPavimentos());
-        values.put("numPessoas", casa.getNumPessoas());
-        values.put("numBanheiro", casa.getNumBanheiro());
-        values.put("numCozinha", casa.getNumCozinha());
-        values.put("numAreaServico", casa.getNumAreaServico());
+        values.put("num_pavimentos", casa.getNumPavimentos());
+        values.put("num_pessoas", casa.getNumPessoas());
+        values.put("num_banheiro", casa.getNumBanheiro());
+        values.put("num_cozinha", casa.getNumCozinha());
+        values.put("num_area_servico", casa.getNumAreaServico());
 
         db.insert(tbCasa, null, values);
         Log.i(TAG, "insert rolou");

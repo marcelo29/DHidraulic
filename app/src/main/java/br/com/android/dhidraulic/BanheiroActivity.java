@@ -60,7 +60,7 @@ public class BanheiroActivity extends AppCompatActivity {
         fabSubTanque = (FloatingActionButton) findViewById(R.id.fabSubTanque);
         fabSubTorneira = (FloatingActionButton) findViewById(R.id.fabSubTorneira);
 
-        Integer numBanheiro = db.retornaCampoTabela("numBanheiro", "casa");
+        Integer numBanheiro = db.retornaCampoTabela("num_banheiro", "casa");
         ArrayList<Integer> list = new ArrayList<>();
 
         for (int i = 1; i <= numBanheiro; i++){
