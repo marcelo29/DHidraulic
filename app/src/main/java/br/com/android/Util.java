@@ -13,4 +13,8 @@ public class Util {
         dialogo.setNeutralButton("Ok", null);
         dialogo.show();
     }
+
+    public static Integer converteParaInt(String str) {
+        return Integer.parseInt(str);
+    }
 }

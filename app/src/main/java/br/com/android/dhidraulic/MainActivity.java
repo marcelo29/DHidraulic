@@ -58,11 +58,11 @@ public class MainActivity extends AppCompatActivity {
             public void onClick(View view) {
                 if (camposValidos()) {
                     casa = new EstruturaCasa();
-                    casa.setNumPavimentos(Integer.parseInt(String.valueOf(edtNumPavimentos.getText().toString())));
-                    casa.setNumAreaServico(Integer.parseInt(String.valueOf(edtNumAreaDeServico.getText())));
-                    casa.setNumBanheiro(Integer.parseInt(String.valueOf(edtNumBanheiro.getText())));
-                    casa.setNumCozinha(Integer.parseInt(String.valueOf(edtNumCozinha.getText())));
-                    casa.setNumPessoas(Integer.parseInt(String.valueOf(edtNumPessoas.getText())));
+                    casa.setNumPavimentos(Integer.parseInt(edtNumPavimentos.getText().toString()));
+                    casa.setNumAreaServico(Integer.parseInt(edtNumAreaDeServico.getText().toString()));
+                    casa.setNumBanheiro(Integer.parseInt(edtNumBanheiro.getText().toString()));
+                    casa.setNumCozinha(Integer.parseInt(edtNumCozinha.getText().toString()));
+                    casa.setNumPessoas(Integer.parseInt(edtNumPessoas.getText().toString()));
 
                     db.insereCasa(escrita, casa);
 

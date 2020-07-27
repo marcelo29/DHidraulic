@@ -4,6 +4,8 @@ import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.database.sqlite.SQLiteDatabase;
+import android.os.Build;
+import android.support.annotation.RequiresApi;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -16,6 +18,7 @@ import android.widget.TextView;
 
 import java.util.ArrayList;
 
+import br.com.android.Util;
 import br.com.android.dao.Db;
 import br.com.android.domain.Banheiro;
 
@@ -88,6 +91,7 @@ public class BanheiroActivity extends AppCompatActivity {
 
     private void cliqueContinuar(final Context ctx) {
         btnCtn.setOnClickListener(new View.OnClickListener() {
+            @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
             @Override
             public void onClick(View view) {
                 if (spnIdBanheiro.getSelectedItem().equals(numBanheiro)) {
@@ -102,6 +106,17 @@ public class BanheiroActivity extends AppCompatActivity {
                     dialogo.setNegativeButton("Não", null);
                     dialogo.show();
                 } else {
+                    banheiro = new Banheiro();
+                    banheiro.setNumBanheira(Util.converteParaInt(txtBanheira.getText().toString()));
+                    banheiro.setNumBebedouro(Integer.parseInt(txtBebedouro.getText().toString()));
+                    banheiro.setNumChuveiro(Integer.parseInt(txtChuveiro.getText().toString()));
+                    banheiro.setNumDucha(Integer.parseInt(txtDucha.getText().toString()));
+                    banheiro.setNumMC(Integer.parseInt(txtMC.getText().toString()));
+                    banheiro.setNumPrivada(Integer.parseInt(txtPrivada.getText().toString()));
+                    banheiro.setNumTanque(Integer.parseInt(txtTanque.getText().toString()));
+                    banheiro.setNumTorneira(Integer.parseInt(txtTorneira.getText().toString()));
+                    banheiro.setValvula(swtValvula.getShowText());
+
 
                 }
             }
