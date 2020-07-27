@@ -23,4 +23,5 @@
     <string name="cozinha">Cozinha</string>
     <string name="banheiro">Banheiro</string>
     <string name="prvValvula">A privada é de válvula ?</string>
+    <string name="aviso_banheiros_corretos">Tem certeza que já configurou todos os banheiros corretamente ?</string>
 </resources>

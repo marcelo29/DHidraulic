@@ -1,16 +1,21 @@
 package br.com.android.dhidraulic;
 
+import android.app.AlertDialog;
+import android.content.Context;
+import android.content.DialogInterface;
 import android.database.sqlite.SQLiteDatabase;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.view.View;
 import android.widget.ArrayAdapter;
-import android.widget.EditText;
+import android.widget.Button;
 import android.widget.Spinner;
 import android.widget.TextView;
 
 import java.util.ArrayList;
 
+import br.com.android.Util;
 import br.com.android.dao.Db;
 
 public class BanheiroActivity extends AppCompatActivity {
@@ -20,6 +25,8 @@ public class BanheiroActivity extends AppCompatActivity {
     TextView txtTorneira, txtChuveiro, txtBebedouro, txtPrivada, txtDucha, txtBanheira, txtTanque, txtMC;
     FloatingActionButton fabAddTorneira, fabAddChuveiro, fabAddBebedouro, fabAddPrivada, fabAddDucha, fabAddBanheira, fabAddTanque, fabAddMC;
     FloatingActionButton fabSubTorneira, fabSubChuveiro, fabSubBebedouro, fabSubPrivada, fabSubDucha, fabSubBanheira, fabSubTanque, fabSubMC;
+    Button btnCtn;
+    Integer numBanheiro;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -60,7 +67,9 @@ public class BanheiroActivity extends AppCompatActivity {
         fabSubTanque = (FloatingActionButton) findViewById(R.id.fabSubTanque);
         fabSubTorneira = (FloatingActionButton) findViewById(R.id.fabSubTorneira);
 
-        Integer numBanheiro = db.retornaCampoTabela("num_banheiro", "casa");
+        btnCtn = (Button) findViewById(R.id.btnCtn);
+
+        numBanheiro = db.retornaCampoTabela("num_banheiro", "casa");
         ArrayList<Integer> list = new ArrayList<>();
 
         for (int i = 1; i <= numBanheiro; i++){
@@ -70,6 +79,30 @@ public class BanheiroActivity extends AppCompatActivity {
         ArrayAdapter adapter = new ArrayAdapter(this, android.R.layout.simple_spinner_item, list);
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_item);
         spnIdBanheiro.setAdapter(adapter);
+
+        cliqueContinuar(this);
+    }
+
+    private void cliqueContinuar(final Context ctx) {
+        btnCtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if (spnIdBanheiro.getSelectedItem().equals(numBanheiro)) {
+                    AlertDialog.Builder dialogo = new AlertDialog.Builder(ctx);
+                    dialogo.setMessage(R.string.aviso_banheiros_corretos);
+                    dialogo.setPositiveButton("Sim", new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialogInterface, int i) {
+                            //carrega proxima tela
+                        }
+                    });
+                    dialogo.setNegativeButton("Não", null);
+                    dialogo.show();
+                } else {
+
+                }
+            }
+        });
     }
 
     @Override
