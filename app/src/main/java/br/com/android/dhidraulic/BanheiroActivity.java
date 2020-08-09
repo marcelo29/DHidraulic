@@ -10,6 +10,7 @@ import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.Spinner;
@@ -19,6 +20,7 @@ import android.widget.TextView;
 import java.util.ArrayList;
 
 import br.com.android.Util;
+import br.com.android.dao.BanheiroDAO;
 import br.com.android.dao.Db;
 import br.com.android.domain.Banheiro;
 
@@ -33,6 +35,7 @@ public class BanheiroActivity extends AppCompatActivity {
     Integer numBanheiro;
     Switch swtValvula;
     Banheiro banheiro;
+    BanheiroDAO dao;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -87,6 +90,17 @@ public class BanheiroActivity extends AppCompatActivity {
         spnIdBanheiro.setAdapter(adapter);
 
         cliqueContinuar(this);
+        spnIdBanheiro.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+                carregaBanheiro(view.getContext());
+            }
+        });
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
     }
 
     private void cliqueContinuar(final Context ctx) {
@@ -106,25 +120,36 @@ public class BanheiroActivity extends AppCompatActivity {
                     dialogo.setNegativeButton("Não", null);
                     dialogo.show();
                 } else {
-                    banheiro = new Banheiro();
-                    banheiro.setNumBanheira(Util.converteParaInt(txtBanheira.getText().toString()));
-                    banheiro.setNumBebedouro(Integer.parseInt(txtBebedouro.getText().toString()));
-                    banheiro.setNumChuveiro(Integer.parseInt(txtChuveiro.getText().toString()));
-                    banheiro.setNumDucha(Integer.parseInt(txtDucha.getText().toString()));
-                    banheiro.setNumMC(Integer.parseInt(txtMC.getText().toString()));
-                    banheiro.setNumPrivada(Integer.parseInt(txtPrivada.getText().toString()));
-                    banheiro.setNumTanque(Integer.parseInt(txtTanque.getText().toString()));
-                    banheiro.setNumTorneira(Integer.parseInt(txtTorneira.getText().toString()));
-                    banheiro.setValvula(swtValvula.getShowText());
-
-
+                    carregaBanheiro(ctx);
                 }
             }
         });
     }
 
-    @Override
-    protected void onResume() {
-        super.onResume();
+    private void carregaBanheiro(Context ctx) {
+        banheiro = new Banheiro();
+        banheiro.setNumBanheira(Util.converteParaInt(txtBanheira.getText().toString()));
+        banheiro.setNumBebedouro(Integer.parseInt(txtBebedouro.getText().toString()));
+        banheiro.setNumChuveiro(Integer.parseInt(txtChuveiro.getText().toString()));
+        banheiro.setNumDucha(Integer.parseInt(txtDucha.getText().toString()));
+        banheiro.setNumMC(Integer.parseInt(txtMC.getText().toString()));
+        banheiro.setNumPrivada(Integer.parseInt(txtPrivada.getText().toString()));
+        banheiro.setNumTanque(Integer.parseInt(txtTanque.getText().toString()));
+        banheiro.setNumTorneira(Integer.parseInt(txtTorneira.getText().toString()));
+        banheiro.setValvula(swtValvula.isChecked());
+        banheiro.setId(Integer.parseInt(spnIdBanheiro.getSelectedItem().toString()));
+
+        BanheiroDAO dao = new BanheiroDAO(ctx);
+        int idCasa = db.retornaCampoTabela("_id", Db.tbCasa);
+
+        if(dao.existeBanheiro(banheiro.getId())){
+            dao.atualizaBanheiro(banheiro, escrita);
+            spnIdBanheiro.getNextFocusDownId();
+            Util.showAviso(ctx, R.string.aviso_banheiro_atualizado);
+        } else {
+            dao.insereBanheiro(banheiro, escrita);
+            dao.insereCasaBanheiro(idCasa, banheiro.getId(), escrita);
+            Util.showAviso(ctx, R.string.aviso_banheiro_salvo);
+        }
     }
 }

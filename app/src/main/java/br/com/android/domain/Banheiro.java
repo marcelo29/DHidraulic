@@ -4,12 +4,6 @@ public class Banheiro {
     private int id, numTorneira, numPrivada, numDucha, numBanheira, numBebedouro, numTanque, numMC, numChuveiro;
     private boolean valvula;
 
-    public Banheiro(int id) {
-        this.id = id;
-    }
-    public Banheiro() {
-
-    }
     public int getNumTorneira() {
         return numTorneira;
     }
@@ -80,5 +74,13 @@ public class Banheiro {
 
     public void setValvula(boolean valvula) {
         this.valvula = valvula;
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
     }
 }

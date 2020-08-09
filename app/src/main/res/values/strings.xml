@@ -21,7 +21,10 @@
     <string name="title_activity_menu">Menu</string>
 
     <string name="cozinha">Cozinha</string>
+
     <string name="banheiro">Banheiro</string>
     <string name="prvValvula">A privada é de válvula ?</string>
     <string name="aviso_banheiros_corretos">Tem certeza que já configurou todos os banheiros corretamente ?</string>
+    <string name="aviso_banheiro_atualizado">Esse banheiro foi atualizado!</string>
+    <string name="aviso_banheiro_salvo">Banheiro salvo com sucesso.</string>
 </resources>
