@@ -17,7 +17,7 @@ public class Db extends SQLiteOpenHelper {
     // nome do banco
     public static final String DATABASE = "db_hidraulic";
     // versao
-    public static final int VERSAO = 6;
+    public static final int VERSAO = 11;
     // para exibicao no log cat
     private static final String TAG = "appHidraulic";
 
@@ -36,7 +36,8 @@ public class Db extends SQLiteOpenHelper {
         sqLiteDatabase.execSQL(ddl);
 
         ddl = "create table if not exists " + tbBanheiro + "(_id integer primary key autoincrement, " +
-                "num_banheiro int, num_toneiras int, num_chuveiros int, num_privadas int, num_duchas int, num_banheira int, num_bebedouro int, " +
+                "num_banheiro int, num_toneiras int, num_chuveiros int, num_privadas int, num_duchas int, " +
+                "num_banheira int, num_bebedouro int, " +
                 "num_tanque int, num_MC int, boolean valvula)";
         sqLiteDatabase.execSQL(ddl);
 
@@ -47,7 +48,7 @@ public class Db extends SQLiteOpenHelper {
     }
 
     @Override
-    public void onUpgrade(SQLiteDatabase sqLiteDatabase, int i, int i1) {
+    public void onUpgrade(SQLiteDatabase sqLiteDatabase, int oldVersion, int newVersion) {
         drop(sqLiteDatabase);
 
         onCreate(sqLiteDatabase);
@@ -56,6 +57,8 @@ public class Db extends SQLiteOpenHelper {
     // deleta o banco
     public void drop(SQLiteDatabase db) {
         db.execSQL("drop table if exists " + tbCasa);
+        db.execSQL("drop table if exists " + tbBanheiro);
+        db.execSQL("drop table if exists " + tbCasaBanheiro);
 
         Log.i(TAG, "*********** Drop rolou");
     }

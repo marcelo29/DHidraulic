@@ -81,7 +81,7 @@ public class BanheiroActivity extends AppCompatActivity {
         numBanheiro = db.retornaCampoTabela("num_banheiro", "casa");
         ArrayList<Integer> list = new ArrayList<>();
 
-        for (int i = 1; i <= numBanheiro; i++){
+        for (int i = 1; i <= numBanheiro; i++) {
             list.add(i);
         }
 
@@ -90,12 +90,7 @@ public class BanheiroActivity extends AppCompatActivity {
         spnIdBanheiro.setAdapter(adapter);
 
         cliqueContinuar(this);
-        spnIdBanheiro.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-                carregaBanheiro(view.getContext());
-            }
-        });
+
     }
 
     @Override
@@ -127,29 +122,41 @@ public class BanheiroActivity extends AppCompatActivity {
     }
 
     private void carregaBanheiro(Context ctx) {
-        banheiro = new Banheiro();
-        banheiro.setNumBanheira(Util.converteParaInt(txtBanheira.getText().toString()));
-        banheiro.setNumBebedouro(Integer.parseInt(txtBebedouro.getText().toString()));
-        banheiro.setNumChuveiro(Integer.parseInt(txtChuveiro.getText().toString()));
-        banheiro.setNumDucha(Integer.parseInt(txtDucha.getText().toString()));
-        banheiro.setNumMC(Integer.parseInt(txtMC.getText().toString()));
-        banheiro.setNumPrivada(Integer.parseInt(txtPrivada.getText().toString()));
-        banheiro.setNumTanque(Integer.parseInt(txtTanque.getText().toString()));
-        banheiro.setNumTorneira(Integer.parseInt(txtTorneira.getText().toString()));
-        banheiro.setValvula(swtValvula.isChecked());
-        banheiro.setId(Integer.parseInt(spnIdBanheiro.getSelectedItem().toString()));
-
         BanheiroDAO dao = new BanheiroDAO(ctx);
         int idCasa = db.retornaCampoTabela("_id", Db.tbCasa);
 
-        if(dao.existeBanheiro(banheiro.getId())){
+        banheiro = new Banheiro();
+        banheiro.setId(Integer.parseInt(spnIdBanheiro.getSelectedItem().toString()));
+
+        if (dao.existeBanheiro(banheiro.getId())) {
+            banheiro = dao.getBanheiro(banheiro.getId());
+            txtBanheira.setText(String.valueOf(banheiro.getNumBanheira()));
+            txtBebedouro.setText(banheiro.getNumBebedouro());
+            txtChuveiro.setText(banheiro.getNumChuveiro());
+            txtDucha.setText(banheiro.getNumDucha());
+            txtMC.setText(banheiro.getNumMC());
+            txtPrivada.setText(banheiro.getNumPrivada());
+            txtTanque.setText(banheiro.getNumTanque());
+            txtTorneira.setText(banheiro.getNumTorneira());
+            swtValvula.setChecked(banheiro.isValvula());
+
             dao.atualizaBanheiro(banheiro, escrita);
             spnIdBanheiro.getNextFocusDownId();
-            Util.showAviso(ctx, R.string.aviso_banheiro_atualizado);
+            //Util.showAviso(ctx, R.string.aviso_banheiro_atualizado);
         } else {
+            banheiro.setNumBanheira(Util.converteParaInt(txtBanheira.getText().toString()));
+            banheiro.setNumBebedouro(Integer.parseInt(txtBebedouro.getText().toString()));
+            banheiro.setNumChuveiro(Integer.parseInt(txtChuveiro.getText().toString()));
+            banheiro.setNumDucha(Integer.parseInt(txtDucha.getText().toString()));
+            banheiro.setNumMC(Integer.parseInt(txtMC.getText().toString()));
+            banheiro.setNumPrivada(Integer.parseInt(txtPrivada.getText().toString()));
+            banheiro.setNumTanque(Integer.parseInt(txtTanque.getText().toString()));
+            banheiro.setNumTorneira(Integer.parseInt(txtTorneira.getText().toString()));
+            banheiro.setValvula(swtValvula.isChecked());
+
             dao.insereBanheiro(banheiro, escrita);
             dao.insereCasaBanheiro(idCasa, banheiro.getId(), escrita);
-            Util.showAviso(ctx, R.string.aviso_banheiro_salvo);
+            //Util.showAviso(ctx, R.string.aviso_banheiro_salvo);
         }
     }
 }

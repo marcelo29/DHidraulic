@@ -35,7 +35,6 @@ public class MainActivity extends AppCompatActivity {
         fabCtn = (Button) findViewById(R.id.btnCtn);
 
         db = new Db(this);
-
         // pega permissao de escrita no banco
         escrita = db.getWritableDatabase();
 
