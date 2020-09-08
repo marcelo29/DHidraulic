@@ -35,7 +35,7 @@ public class BanheiroDAO extends SQLiteOpenHelper {
         cv.put("num_bebedouro", banheiro.getNumBebedouro());
         cv.put("num_tanque", banheiro.getNumTanque());
         cv.put("num_MC", banheiro.getNumMC());
-        cv.put("valvula", banheiro.isValvula());
+        //cv.put("valvula", banheiro.isValvula());
 
         sqLiteDatabase.insert(Db.tbBanheiro, null, cv);
     }

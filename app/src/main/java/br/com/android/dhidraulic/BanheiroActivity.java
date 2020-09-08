@@ -123,7 +123,7 @@ public class BanheiroActivity extends AppCompatActivity {
 
     private void carregaBanheiro(Context ctx) {
         BanheiroDAO dao = new BanheiroDAO(ctx);
-        int idCasa = db.retornaCampoTabela("_id", Db.tbCasa);
+        int idCasa = db.retornaCampoTabela("_id", Db.tbBanheiro);
 
         banheiro = new Banheiro();
         banheiro.setId(Integer.parseInt(spnIdBanheiro.getSelectedItem().toString()));
@@ -156,7 +156,7 @@ public class BanheiroActivity extends AppCompatActivity {
 
             dao.insereBanheiro(banheiro, escrita);
             dao.insereCasaBanheiro(idCasa, banheiro.getId(), escrita);
-            //Util.showAviso(ctx, R.string.aviso_banheiro_salvo);
+            Util.showAviso(ctx, R.string.aviso_banheiro_salvo);
         }
     }
 }

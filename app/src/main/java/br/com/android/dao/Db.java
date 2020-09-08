@@ -17,7 +17,7 @@ public class Db extends SQLiteOpenHelper {
     // nome do banco
     public static final String DATABASE = "db_hidraulic";
     // versao
-    public static final int VERSAO = 11;
+    public static final int VERSAO = 12;
     // para exibicao no log cat
     private static final String TAG = "appHidraulic";
 
@@ -38,7 +38,7 @@ public class Db extends SQLiteOpenHelper {
         ddl = "create table if not exists " + tbBanheiro + "(_id integer primary key autoincrement, " +
                 "num_banheiro int, num_toneiras int, num_chuveiros int, num_privadas int, num_duchas int, " +
                 "num_banheira int, num_bebedouro int, " +
-                "num_tanque int, num_MC int, boolean valvula)";
+                "num_tanque int, num_MC int, valvula boolean )";
         sqLiteDatabase.execSQL(ddl);
 
         ddl = "create table if not exists " + tbCasaBanheiro +  "(_id integer primary key autoincrement, " +

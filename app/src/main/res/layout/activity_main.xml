@@ -21,7 +21,8 @@
                 android:layout_height="wrap_content"
                 android:bufferType="editable"
                 android:hint="@string/num_pavimentos"
-                android:inputType="numberDecimal"
+                android:inputType="number"
+                android:text="3"
                 tools:ignore="Autofill,MissingConstraints"
                 tools:layout_editor_absoluteY="16dp" />
 
@@ -32,7 +33,8 @@
                 android:layout_marginTop="48dp"
                 android:ems="10"
                 android:hint="@string/num_pessoas"
-                android:inputType="numberDecimal"
+                android:inputType="number"
+                android:text="3"
                 app:layout_constraintTop_toTopOf="@id/edtNumPavimentos" />
 
             <EditText
@@ -42,7 +44,8 @@
                 android:layout_marginTop="48dp"
                 android:ems="10"
                 android:hint="@string/num_cozinhas"
-                android:inputType="numberDecimal"
+                android:inputType="number"
+                android:text="3"
                 app:layout_constraintTop_toTopOf="@id/edtNumPessoas" />
 
             <EditText
@@ -52,7 +55,8 @@
                 android:layout_marginTop="48dp"
                 android:ems="10"
                 android:hint="@string/num_banheiros"
-                android:inputType="numberDecimal"
+                android:inputType="number"
+                android:text="3"
                 app:layout_constraintTop_toTopOf="@id/edtNumCozinha" />
 
             <EditText
@@ -62,7 +66,8 @@
                 android:layout_marginTop="48dp"
                 android:ems="10"
                 android:hint="@string/num_area_servico"
-                android:inputType="numberDecimal"
+                android:inputType="number"
+                android:text="3"
                 app:layout_constraintTop_toTopOf="@id/edtNumBanheiro" />
 
         </android.support.constraint.ConstraintLayout>
