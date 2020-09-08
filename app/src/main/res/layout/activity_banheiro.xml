@@ -298,12 +298,13 @@
                 android:text="0"
                 android:textSize="56sp" />
         </LinearLayout>
+
         <LinearLayout
             android:id="@+id/llTanque"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
-            app:layout_constraintTop_toBottomOf="@id/llBebedouro"
+            app:layout_constraintTop_toBottomOf="@id/llBanheira"
             tools:layout_editor_absoluteX="345dp">
 
             <android.support.v7.widget.AppCompatImageView
@@ -348,7 +349,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
-            app:layout_constraintTop_toBottomOf="@id/llBanheira"
+            app:layout_constraintTop_toBottomOf="@id/llTanque"
             tools:layout_editor_absoluteX="345dp">
 
             <android.support.v7.widget.AppCompatImageView
@@ -392,6 +393,7 @@
             android:id="@+id/btnCtn"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
             android:background="@color/colorPrimary"
             android:text="@string/btn_ctn"
             android:textColor="@android:color/background_light"
