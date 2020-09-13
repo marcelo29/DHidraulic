@@ -3,49 +3,50 @@ package br.com.android.dhidraulic;
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
-import android.database.sqlite.SQLiteDatabase;
 import android.os.Build;
+import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.annotation.RequiresApi;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
-import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.Spinner;
 import android.widget.Switch;
 import android.widget.TextView;
 
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
+
 import java.util.ArrayList;
 
 import br.com.android.Util;
-import br.com.android.dao.BanheiroDAO;
-import br.com.android.dao.Db;
 import br.com.android.domain.Banheiro;
+import br.com.android.domain.EstruturaCasa;
 
 public class BanheiroActivity extends AppCompatActivity {
+
     private Spinner spnIdBanheiro;
-    Db db;
-    SQLiteDatabase escrita;
     TextView txtTorneira, txtChuveiro, txtBebedouro, txtPrivada, txtDucha, txtBanheira, txtTanque, txtMC;
     FloatingActionButton fabAddTorneira, fabAddChuveiro, fabAddBebedouro, fabAddPrivada, fabAddDucha, fabAddBanheira, fabAddTanque, fabAddMC;
     FloatingActionButton fabSubTorneira, fabSubChuveiro, fabSubBebedouro, fabSubPrivada, fabSubDucha, fabSubBanheira, fabSubTanque, fabSubMC;
     Button btnCtn;
     Integer numBanheiro;
     Switch swtValvula;
-    Banheiro banheiro;
-    BanheiroDAO dao;
+    private Banheiro banheiro;
+    private EstruturaCasa casa;
+    private FirebaseDatabase db;
+    private DatabaseReference dbRef;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_banheiro);
-
-        db = new Db(this);
-
-        // pega permissao de escrita no banco
-        escrita = db.getWritableDatabase();
 
         spnIdBanheiro = (Spinner) findViewById(R.id.spnIdBanheiro);
         swtValvula = (Switch) findViewById(R.id.swtValvula);
@@ -78,24 +79,40 @@ public class BanheiroActivity extends AppCompatActivity {
 
         btnCtn = (Button) findViewById(R.id.btnCtn);
 
-        numBanheiro = db.retornaCampoTabela("num_banheiro", "casa");
+        //fazer leitura do banco
+        db = FirebaseDatabase.getInstance();
+        dbRef = db.getReference("dhidraulic/casa");
+
+        casa = new EstruturaCasa();
+        numBanheiro = 0;
+
+        ValueEventListener vel = new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                casa = dataSnapshot.getValue(EstruturaCasa.class);
+                numBanheiro = casa.getNumBanheiro();
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+                Log.w("onCancelled", "loadPost:onCancelled", databaseError.toException());
+            }
+        };
+
+        dbRef.addValueEventListener(vel);
+
         ArrayList<Integer> list = new ArrayList<>();
 
-        for (int i = 1; i <= numBanheiro; i++) {
-            list.add(i);
-        }
+        if (numBanheiro >= 1)
+            for (int i = 1; i <= numBanheiro; i++) {
+                list.add(i);
+            }
 
         ArrayAdapter adapter = new ArrayAdapter(this, android.R.layout.simple_spinner_item, list);
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_item);
         spnIdBanheiro.setAdapter(adapter);
 
         cliqueContinuar(this);
-
-    }
-
-    @Override
-    protected void onResume() {
-        super.onResume();
     }
 
     private void cliqueContinuar(final Context ctx) {
@@ -122,14 +139,13 @@ public class BanheiroActivity extends AppCompatActivity {
     }
 
     private void carregaBanheiro(Context ctx) {
-        BanheiroDAO dao = new BanheiroDAO(ctx);
-        int idCasa = db.retornaCampoTabela("_id", Db.tbBanheiro);
+        //BanheiroDAO dao = new BanheiroDAO(ctx);
+        //int idCasa = db.retornaCampoTabela("_id", Db.tbBanheiro);
 
         banheiro = new Banheiro();
         banheiro.setId(Integer.parseInt(spnIdBanheiro.getSelectedItem().toString()));
 
-        if (dao.existeBanheiro(banheiro.getId())) {
-            banheiro = dao.getBanheiro(banheiro.getId());
+        if (banheiro.getId() != 0) {
             txtBanheira.setText(String.valueOf(banheiro.getNumBanheira()));
             txtBebedouro.setText(banheiro.getNumBebedouro());
             txtChuveiro.setText(banheiro.getNumChuveiro());
@@ -140,9 +156,9 @@ public class BanheiroActivity extends AppCompatActivity {
             txtTorneira.setText(banheiro.getNumTorneira());
             swtValvula.setChecked(banheiro.isValvula());
 
-            dao.atualizaBanheiro(banheiro, escrita);
+            //dao.atualizaBanheiro(banheiro, escrita);
             spnIdBanheiro.getNextFocusDownId();
-            //Util.showAviso(ctx, R.string.aviso_banheiro_atualizado);
+            Util.showAviso(ctx, R.string.aviso_banheiro_atualizado);
         } else {
             banheiro.setNumBanheira(Util.converteParaInt(txtBanheira.getText().toString()));
             banheiro.setNumBebedouro(Integer.parseInt(txtBebedouro.getText().toString()));
@@ -154,8 +170,9 @@ public class BanheiroActivity extends AppCompatActivity {
             banheiro.setNumTorneira(Integer.parseInt(txtTorneira.getText().toString()));
             banheiro.setValvula(swtValvula.isChecked());
 
-            dao.insereBanheiro(banheiro, escrita);
-            dao.insereCasaBanheiro(idCasa, banheiro.getId(), escrita);
+            dbRef = db.getReference("dhidraulic/casa/banheiro");
+            dbRef.setValue(banheiro);
+
             Util.showAviso(ctx, R.string.aviso_banheiro_salvo);
         }
     }
