@@ -78,19 +78,28 @@ public class BanheiroActivity extends AppCompatActivity {
         fabSubTorneira = (FloatingActionButton) findViewById(R.id.fabSubTorneira);
 
         btnCtn = (Button) findViewById(R.id.btnCtn);
+    }
 
+    @Override
+    protected void onResume() {
+        super.onResume();
         //fazer leitura do banco
         db = FirebaseDatabase.getInstance();
         dbRef = db.getReference("dhidraulic/casa");
 
         casa = new EstruturaCasa();
         numBanheiro = 0;
+        final ArrayList<Integer> list = new ArrayList();
 
         ValueEventListener vel = new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 casa = dataSnapshot.getValue(EstruturaCasa.class);
                 numBanheiro = casa.getNumBanheiro();
+
+                for (int i = 1; i <= numBanheiro; i++) {
+                    list.add(i);
+                }
             }
 
             @Override
@@ -98,15 +107,7 @@ public class BanheiroActivity extends AppCompatActivity {
                 Log.w("onCancelled", "loadPost:onCancelled", databaseError.toException());
             }
         };
-
         dbRef.addValueEventListener(vel);
-
-        ArrayList<Integer> list = new ArrayList<>();
-
-        if (numBanheiro >= 1)
-            for (int i = 1; i <= numBanheiro; i++) {
-                list.add(i);
-            }
 
         ArrayAdapter adapter = new ArrayAdapter(this, android.R.layout.simple_spinner_item, list);
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_item);
@@ -139,9 +140,6 @@ public class BanheiroActivity extends AppCompatActivity {
     }
 
     private void carregaBanheiro(Context ctx) {
-        //BanheiroDAO dao = new BanheiroDAO(ctx);
-        //int idCasa = db.retornaCampoTabela("_id", Db.tbBanheiro);
-
         banheiro = new Banheiro();
         banheiro.setId(Integer.parseInt(spnIdBanheiro.getSelectedItem().toString()));
 
