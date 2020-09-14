@@ -42,6 +42,7 @@ public class BanheiroActivity extends AppCompatActivity {
     private EstruturaCasa casa;
     private FirebaseDatabase db;
     private DatabaseReference dbRef;
+    private ArrayList<Integer> lista;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -78,18 +79,15 @@ public class BanheiroActivity extends AppCompatActivity {
         fabSubTorneira = (FloatingActionButton) findViewById(R.id.fabSubTorneira);
 
         btnCtn = (Button) findViewById(R.id.btnCtn);
-    }
 
-    @Override
-    protected void onResume() {
-        super.onResume();
-        //fazer leitura do banco
+        lista = new ArrayList<>();
+        lista.add(0);
+
         db = FirebaseDatabase.getInstance();
         dbRef = db.getReference("dhidraulic/casa");
 
-        casa = new EstruturaCasa();
-        numBanheiro = 0;
-        final ArrayList<Integer> list = new ArrayList();
+        ArrayAdapter adapter = new ArrayAdapter(this, android.R.layout.simple_spinner_item, lista);
+        adapter.setDropDownViewResource(android.R.layout.simple_spinner_item);
 
         ValueEventListener vel = new ValueEventListener() {
             @Override
@@ -98,7 +96,7 @@ public class BanheiroActivity extends AppCompatActivity {
                 numBanheiro = casa.getNumBanheiro();
 
                 for (int i = 1; i <= numBanheiro; i++) {
-                    list.add(i);
+                    lista.add(i);
                 }
             }
 
@@ -109,16 +107,11 @@ public class BanheiroActivity extends AppCompatActivity {
         };
         dbRef.addValueEventListener(vel);
 
-        ArrayAdapter adapter = new ArrayAdapter(this, android.R.layout.simple_spinner_item, list);
-        adapter.setDropDownViewResource(android.R.layout.simple_spinner_item);
-        spnIdBanheiro.setAdapter(adapter);
-
         cliqueContinuar(this);
     }
 
     private void cliqueContinuar(final Context ctx) {
         btnCtn.setOnClickListener(new View.OnClickListener() {
-            @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
             @Override
             public void onClick(View view) {
                 if (spnIdBanheiro.getSelectedItem().equals(numBanheiro)) {
