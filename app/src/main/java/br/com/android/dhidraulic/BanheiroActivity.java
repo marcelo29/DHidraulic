@@ -81,7 +81,7 @@ public class BanheiroActivity extends AppCompatActivity {
         btnCtn = (Button) findViewById(R.id.btnCtn);
 
         lista = new ArrayList<>();
-        lista.add(0);
+        lista.add(1);
 
         db = FirebaseDatabase.getInstance();
         dbRef = db.getReference("dhidraulic/casa");
@@ -95,7 +95,7 @@ public class BanheiroActivity extends AppCompatActivity {
                 casa = dataSnapshot.getValue(EstruturaCasa.class);
                 numBanheiro = casa.getNumBanheiro();
 
-                for (int i = 1; i <= numBanheiro; i++) {
+                for (int i = 2; i <= numBanheiro; i++) {
                     lista.add(i);
                 }
             }
@@ -106,6 +106,8 @@ public class BanheiroActivity extends AppCompatActivity {
             }
         };
         dbRef.addValueEventListener(vel);
+
+        spnIdBanheiro.setAdapter(adapter);
 
         cliqueContinuar(this);
     }
