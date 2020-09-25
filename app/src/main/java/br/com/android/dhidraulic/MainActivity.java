@@ -44,8 +44,6 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onStart() {
         super.onStart();
-        FirebaseUser user = fbau.getCurrentUser();
-        //updateUI(user);
         clique();
     }
 

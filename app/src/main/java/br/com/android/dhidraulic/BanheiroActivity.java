@@ -3,10 +3,8 @@ package br.com.android.dhidraulic;
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
-import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
-import android.support.annotation.RequiresApi;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
@@ -95,9 +93,10 @@ public class BanheiroActivity extends AppCompatActivity {
                 casa = dataSnapshot.getValue(EstruturaCasa.class);
                 numBanheiro = casa.getNumBanheiro();
 
-                for (int i = 2; i <= numBanheiro; i++) {
-                    lista.add(i);
-                }
+                if (lista.size() == 1)
+                    for (int i = 2; i <= numBanheiro; i++) {
+                        lista.add(i);
+                    }
             }
 
             @Override
@@ -123,6 +122,7 @@ public class BanheiroActivity extends AppCompatActivity {
                         @Override
                         public void onClick(DialogInterface dialogInterface, int i) {
                             //carrega proxima tela
+                            carregaBanheiro(ctx);
                         }
                     });
                     dialogo.setNegativeButton("Não", null);
@@ -137,21 +137,35 @@ public class BanheiroActivity extends AppCompatActivity {
     private void carregaBanheiro(Context ctx) {
         banheiro = new Banheiro();
         banheiro.setId(Integer.parseInt(spnIdBanheiro.getSelectedItem().toString()));
+        String caminho="";
+        for (int i = 1; i <= banheiro.getId(); i++) {
+            caminho = caminho+i+"/";
+        }
+        dbRef = db.getReference("dhidraulic/casa/banheiro/"+banheiro.getId());
+        ValueEventListener vel = new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                banheiro = dataSnapshot.getValue(Banheiro.class);
+            }
 
-        if (banheiro.getId() != 0) {
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+                Log.w("onCancelled", "loadPost:onCancelled", databaseError.toException());
+            }
+        };
+
+        if (banheiro != null) {
             txtBanheira.setText(String.valueOf(banheiro.getNumBanheira()));
-            txtBebedouro.setText(banheiro.getNumBebedouro());
-            txtChuveiro.setText(banheiro.getNumChuveiro());
-            txtDucha.setText(banheiro.getNumDucha());
-            txtMC.setText(banheiro.getNumMC());
-            txtPrivada.setText(banheiro.getNumPrivada());
-            txtTanque.setText(banheiro.getNumTanque());
-            txtTorneira.setText(banheiro.getNumTorneira());
+            txtBebedouro.setText(String.valueOf(banheiro.getNumBebedouro()));
+            txtChuveiro.setText(String.valueOf(banheiro.getNumChuveiro()));
+            txtDucha.setText(String.valueOf(banheiro.getNumDucha()));
+            txtMC.setText(String.valueOf(banheiro.getNumMC()));
+            txtPrivada.setText(String.valueOf(banheiro.getNumPrivada()));
+            txtTanque.setText(String.valueOf(banheiro.getNumTanque()));
+            txtTorneira.setText(String.valueOf(banheiro.getNumTorneira()));
             swtValvula.setChecked(banheiro.isValvula());
 
-            //dao.atualizaBanheiro(banheiro, escrita);
             spnIdBanheiro.getNextFocusDownId();
-            Util.showAviso(ctx, R.string.aviso_banheiro_atualizado);
         } else {
             banheiro.setNumBanheira(Util.converteParaInt(txtBanheira.getText().toString()));
             banheiro.setNumBebedouro(Integer.parseInt(txtBebedouro.getText().toString()));
@@ -162,11 +176,9 @@ public class BanheiroActivity extends AppCompatActivity {
             banheiro.setNumTanque(Integer.parseInt(txtTanque.getText().toString()));
             banheiro.setNumTorneira(Integer.parseInt(txtTorneira.getText().toString()));
             banheiro.setValvula(swtValvula.isChecked());
-
-            dbRef = db.getReference("dhidraulic/casa/banheiro");
-            dbRef.setValue(banheiro);
-
-            Util.showAviso(ctx, R.string.aviso_banheiro_salvo);
         }
+
+        Util.showAviso(ctx, R.string.aviso_banheiro_salvo);
+        dbRef.setValue(banheiro);
     }
 }
