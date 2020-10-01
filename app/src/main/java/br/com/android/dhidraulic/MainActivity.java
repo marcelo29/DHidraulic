@@ -9,7 +9,6 @@ import android.widget.Button;
 import android.widget.EditText;
 
 import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
@@ -24,6 +23,8 @@ public class MainActivity extends AppCompatActivity {
     Context ctx;
     FirebaseDatabase db;
     private FirebaseAuth fbau;
+
+    //implementar login pelo google
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
