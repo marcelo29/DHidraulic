@@ -24,8 +24,6 @@ public class MainActivity extends AppCompatActivity {
     FirebaseDatabase db;
     private FirebaseAuth fbau;
 
-    //implementar login pelo google
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
