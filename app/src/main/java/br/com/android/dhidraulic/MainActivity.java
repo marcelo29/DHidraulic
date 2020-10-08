@@ -2,17 +2,14 @@ package br.com.android.dhidraulic;
 
 import android.content.Context;
 import android.content.Intent;
+import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
-
-import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.database.DatabaseReference;
-import com.google.firebase.database.FirebaseDatabase;
-
 import br.com.android.Util;
+import br.com.android.dao.Db;
 import br.com.android.domain.EstruturaCasa;
 
 public class MainActivity extends AppCompatActivity {
@@ -21,14 +18,14 @@ public class MainActivity extends AppCompatActivity {
     Button fabCtn;
     EstruturaCasa casa;
     Context ctx;
-    FirebaseDatabase db;
-    private FirebaseAuth fbau;
+    Db db;
+    SQLiteDatabase escrita;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
         ctx = this;
+        setContentView(R.layout.activity_main);
 
         edtNumPavimentos = (EditText) findViewById(R.id.edtNumPavimentos);
         edtNumPessoas = (EditText) findViewById(R.id.edtNumPessoas);
@@ -37,12 +34,21 @@ public class MainActivity extends AppCompatActivity {
         edtNumAreaDeServico = (EditText) findViewById(R.id.edtNumAreaDeServico);
         fabCtn = (Button) findViewById(R.id.btnCtn);
 
-        fbau = FirebaseAuth.getInstance();
+        db = new Db(this);
+
+        // pega permissao de escrita no banco
+        escrita = db.getWritableDatabase();
+
+        // Se o banco nao existir
+        if (!db.doesDatabaseExist(this, db.getDatabaseName())) {
+            // cria e popula o banco
+            db.onCreate(escrita);
+        }
     }
 
     @Override
-    protected void onStart() {
-        super.onStart();
+    protected void onResume() {
+        super.onResume();
         clique();
     }
 
@@ -58,9 +64,7 @@ public class MainActivity extends AppCompatActivity {
                     casa.setNumCozinha(Integer.parseInt(edtNumCozinha.getText().toString()));
                     casa.setNumPessoas(Integer.parseInt(edtNumPessoas.getText().toString()));
 
-                    db = FirebaseDatabase.getInstance();
-                    DatabaseReference dbRef = db.getReference("dhidraulic/casa");
-                    dbRef.setValue(casa);
+                    db.insereCasa(escrita, casa);
 
                     Intent intent = new Intent(MainActivity.this, MenuActivity.class);
                     startActivity(intent);

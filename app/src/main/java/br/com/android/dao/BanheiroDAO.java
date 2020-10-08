@@ -57,19 +57,6 @@ public class BanheiroDAO extends SQLiteOpenHelper {
         escrita.insert(Db.tbCasaBanheiro, null, cv);
     }
 
-    public boolean existeBanheiro(int id) {
-        String sql = "select * from banheiro";
-        Cursor cs = getReadableDatabase().rawQuery(sql, null);
-
-        try {
-            return cs.moveToFirst();
-        } catch (Exception e) {
-            return false;
-        } finally {
-            cs.close();
-        }
-    }
-
     public Banheiro getBanheiro(int id) {
         String sql = "select * from banheiro where num_banheiro = " + id;
         Cursor cs = getReadableDatabase().rawQuery(sql, null);
@@ -88,6 +75,19 @@ public class BanheiroDAO extends SQLiteOpenHelper {
             return banheiro;
         } catch (Exception e) {
             return null;
+        } finally {
+            cs.close();
+        }
+    }
+
+    public boolean existeBanheiro(int id) {
+        String sql = "select from banheiro where num_banheiro = " + id;
+        Cursor cs = getReadableDatabase().rawQuery(sql, null);
+
+        try {
+            return cs.moveToFirst();
+        } catch (Exception e) {
+            return false;
         } finally {
             cs.close();
         }

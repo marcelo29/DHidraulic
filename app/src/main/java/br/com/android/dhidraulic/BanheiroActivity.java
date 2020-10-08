@@ -3,49 +3,49 @@ package br.com.android.dhidraulic;
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
-import android.os.Bundle;
-import android.support.annotation.NonNull;
+import android.database.sqlite.SQLiteDatabase;
+import android.os.Build;
+import android.support.annotation.RequiresApi;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
-import android.util.Log;
+import android.os.Bundle;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.Spinner;
 import android.widget.Switch;
 import android.widget.TextView;
 
-import com.google.firebase.database.DataSnapshot;
-import com.google.firebase.database.DatabaseError;
-import com.google.firebase.database.DatabaseReference;
-import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.database.ValueEventListener;
-
 import java.util.ArrayList;
 
 import br.com.android.Util;
+import br.com.android.dao.BanheiroDAO;
+import br.com.android.dao.Db;
 import br.com.android.domain.Banheiro;
-import br.com.android.domain.EstruturaCasa;
 
 public class BanheiroActivity extends AppCompatActivity {
-
     private Spinner spnIdBanheiro;
+    Db db;
+    SQLiteDatabase escrita;
     TextView txtTorneira, txtChuveiro, txtBebedouro, txtPrivada, txtDucha, txtBanheira, txtTanque, txtMC;
     FloatingActionButton fabAddTorneira, fabAddChuveiro, fabAddBebedouro, fabAddPrivada, fabAddDucha, fabAddBanheira, fabAddTanque, fabAddMC;
     FloatingActionButton fabSubTorneira, fabSubChuveiro, fabSubBebedouro, fabSubPrivada, fabSubDucha, fabSubBanheira, fabSubTanque, fabSubMC;
     Button btnCtn;
     Integer numBanheiro;
     Switch swtValvula;
-    private Banheiro banheiro;
-    private EstruturaCasa casa;
-    private FirebaseDatabase db;
-    private DatabaseReference dbRef;
-    private ArrayList<Integer> lista;
+    Banheiro banheiro;
+    BanheiroDAO dao;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_banheiro);
+
+        db = new Db(this);
+
+        // pega permissao de escrita no banco
+        escrita = db.getWritableDatabase();
 
         spnIdBanheiro = (Spinner) findViewById(R.id.spnIdBanheiro);
         swtValvula = (Switch) findViewById(R.id.swtValvula);
@@ -78,41 +78,29 @@ public class BanheiroActivity extends AppCompatActivity {
 
         btnCtn = (Button) findViewById(R.id.btnCtn);
 
-        lista = new ArrayList<>();
-        lista.add(1);
+        numBanheiro = db.retornaCampoTabela("num_banheiro", "casa");
+        ArrayList<Integer> list = new ArrayList<>();
+        list.add(1);
 
-        db = FirebaseDatabase.getInstance();
-        dbRef = db.getReference("dhidraulic/casa");
+        for (int i = 2; i <= numBanheiro; i++) {
+            list.add(i);
+        }
 
-        ArrayAdapter adapter = new ArrayAdapter(this, android.R.layout.simple_spinner_item, lista);
+        ArrayAdapter adapter = new ArrayAdapter(this, android.R.layout.simple_spinner_item, list);
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_item);
-
-        ValueEventListener vel = new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                casa = dataSnapshot.getValue(EstruturaCasa.class);
-                numBanheiro = casa.getNumBanheiro();
-
-                if (lista.size() == 1)
-                    for (int i = 2; i <= numBanheiro; i++) {
-                        lista.add(i);
-                    }
-            }
-
-            @Override
-            public void onCancelled(@NonNull DatabaseError databaseError) {
-                Log.w("onCancelled", "loadPost:onCancelled", databaseError.toException());
-            }
-        };
-        dbRef.addValueEventListener(vel);
-
         spnIdBanheiro.setAdapter(adapter);
 
         cliqueContinuar(this);
     }
 
+    @Override
+    protected void onResume() {
+        super.onResume();
+    }
+
     private void cliqueContinuar(final Context ctx) {
         btnCtn.setOnClickListener(new View.OnClickListener() {
+            @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
             @Override
             public void onClick(View view) {
                 if (spnIdBanheiro.getSelectedItem().equals(numBanheiro)) {
@@ -122,7 +110,6 @@ public class BanheiroActivity extends AppCompatActivity {
                         @Override
                         public void onClick(DialogInterface dialogInterface, int i) {
                             //carrega proxima tela
-                            carregaBanheiro(ctx);
                         }
                     });
                     dialogo.setNegativeButton("Não", null);
@@ -135,37 +122,27 @@ public class BanheiroActivity extends AppCompatActivity {
     }
 
     private void carregaBanheiro(Context ctx) {
+        BanheiroDAO dao = new BanheiroDAO(ctx);
+        int idCasa = db.retornaCampoTabela("_id", Db.tbCasa);
+
         banheiro = new Banheiro();
         banheiro.setId(Integer.parseInt(spnIdBanheiro.getSelectedItem().toString()));
-        String caminho="";
-        for (int i = 1; i <= banheiro.getId(); i++) {
-            caminho = caminho+i+"/";
-        }
-        dbRef = db.getReference("dhidraulic/casa/banheiro/"+caminho);
-        ValueEventListener vel = new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                banheiro = dataSnapshot.getValue(Banheiro.class);
-            }
 
-            @Override
-            public void onCancelled(@NonNull DatabaseError databaseError) {
-                Log.w("onCancelled", "loadPost:onCancelled", databaseError.toException());
-            }
-        };
-
-        if (banheiro != null) {
+        if (dao.existeBanheiro(banheiro.getId())) {
+            banheiro = dao.getBanheiro(banheiro.getId());
             txtBanheira.setText(String.valueOf(banheiro.getNumBanheira()));
-            txtBebedouro.setText(String.valueOf(banheiro.getNumBebedouro()));
-            txtChuveiro.setText(String.valueOf(banheiro.getNumChuveiro()));
-            txtDucha.setText(String.valueOf(banheiro.getNumDucha()));
-            txtMC.setText(String.valueOf(banheiro.getNumMC()));
-            txtPrivada.setText(String.valueOf(banheiro.getNumPrivada()));
-            txtTanque.setText(String.valueOf(banheiro.getNumTanque()));
-            txtTorneira.setText(String.valueOf(banheiro.getNumTorneira()));
+            txtBebedouro.setText(banheiro.getNumBebedouro());
+            txtChuveiro.setText(banheiro.getNumChuveiro());
+            txtDucha.setText(banheiro.getNumDucha());
+            txtMC.setText(banheiro.getNumMC());
+            txtPrivada.setText(banheiro.getNumPrivada());
+            txtTanque.setText(banheiro.getNumTanque());
+            txtTorneira.setText(banheiro.getNumTorneira());
             swtValvula.setChecked(banheiro.isValvula());
 
+            dao.atualizaBanheiro(banheiro, escrita);
             spnIdBanheiro.getNextFocusDownId();
+            //Util.showAviso(ctx, R.string.aviso_banheiro_atualizado);
         } else {
             banheiro.setNumBanheira(Util.converteParaInt(txtBanheira.getText().toString()));
             banheiro.setNumBebedouro(Integer.parseInt(txtBebedouro.getText().toString()));
@@ -176,9 +153,10 @@ public class BanheiroActivity extends AppCompatActivity {
             banheiro.setNumTanque(Integer.parseInt(txtTanque.getText().toString()));
             banheiro.setNumTorneira(Integer.parseInt(txtTorneira.getText().toString()));
             banheiro.setValvula(swtValvula.isChecked());
-        }
 
-        Util.showAviso(ctx, R.string.aviso_banheiro_salvo);
-        dbRef.setValue(banheiro);
+            dao.insereBanheiro(banheiro, escrita);
+            dao.insereCasaBanheiro(idCasa, banheiro.getId(), escrita);
+            //Util.showAviso(ctx, R.string.aviso_banheiro_salvo);
+        }
     }
 }
