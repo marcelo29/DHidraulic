@@ -141,7 +141,7 @@ public class BanheiroActivity extends AppCompatActivity {
         for (int i = 1; i <= banheiro.getId(); i++) {
             caminho = caminho+i+"/";
         }
-        dbRef = db.getReference("dhidraulic/casa/banheiro/"+banheiro.getId());
+        dbRef = db.getReference("dhidraulic/casa/banheiro/"+caminho);
         ValueEventListener vel = new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {

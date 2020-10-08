@@ -27,8 +27,8 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        ctx = this;
         setContentView(R.layout.activity_main);
+        ctx = this;
 
         edtNumPavimentos = (EditText) findViewById(R.id.edtNumPavimentos);
         edtNumPessoas = (EditText) findViewById(R.id.edtNumPessoas);
