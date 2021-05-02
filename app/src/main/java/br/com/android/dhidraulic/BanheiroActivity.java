@@ -92,6 +92,27 @@ public class BanheiroActivity extends AppCompatActivity {
         spnIdBanheiro.setAdapter(adapter);
 
         cliqueContinuar(this);
+
+        fabAddTorneira.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Integer qtdTorneira = Integer.parseInt(txtTorneira.getText().toString());
+                int torneiras = qtdTorneira + 1;
+                txtTorneira.setText(Integer.toString(torneiras));
+            }
+        });
+
+        fabSubTorneira.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Integer qtdTorneira = Integer.parseInt(txtTorneira.getText().toString());
+                qtdTorneira = qtdTorneira - 1;
+                if (qtdTorneira <0)
+                    Util.showAviso(view.getContext(), R.string.aviso_campo_negativo);
+                 else
+                    txtTorneira.setText(Integer.toString(qtdTorneira));
+            }
+        });
     }
 
     @Override
@@ -143,7 +164,7 @@ public class BanheiroActivity extends AppCompatActivity {
 
             dao.atualizaBanheiro(banheiro, escrita);
             spnIdBanheiro.getNextFocusDownId();
-            //Util.showAviso(ctx, R.string.aviso_banheiro_atualizado);
+            Util.showAviso(ctx, R.string.aviso_banheiro_atualizado);
         } else {
             banheiro.setNumBanheira(Util.converteParaInt(txtBanheira.getText().toString()));
             banheiro.setNumBebedouro(Integer.parseInt(txtBebedouro.getText().toString()));
@@ -157,7 +178,7 @@ public class BanheiroActivity extends AppCompatActivity {
 
             dao.insereBanheiro(banheiro, escrita);
             dao.insereCasaBanheiro(idCasa, banheiro.getId(), escrita);
-            //Util.showAviso(ctx, R.string.aviso_banheiro_salvo);
+            Util.showAviso(ctx, R.string.aviso_banheiro_salvo);
         }
     }
 }

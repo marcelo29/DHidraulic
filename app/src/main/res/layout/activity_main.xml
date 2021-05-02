@@ -15,7 +15,7 @@
             android:id="@+id/cl1"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="#B8DFB7"
+            android:background="#E6EDE5"
             app:layout_constraintTop_toTopOf="parent"
             tools:context=".MainActivity">
 

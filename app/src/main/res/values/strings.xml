@@ -28,4 +28,5 @@
     <string name="aviso_banheiro_atualizado">Esse banheiro foi atualizado!</string>
     <string name="aviso_banheiro_salvo">Banheiro salvo com sucesso.</string>
     <string name="area_servico">Área de serviço</string>
+    <string name="aviso_campo_negativo">O valor não pode ser negativo</string>
 </resources>
