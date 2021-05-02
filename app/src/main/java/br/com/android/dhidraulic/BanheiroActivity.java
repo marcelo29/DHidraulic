@@ -26,6 +26,7 @@ import br.com.android.domain.Banheiro;
 
 public class BanheiroActivity extends AppCompatActivity {
     private Spinner spnIdBanheiro;
+
     Db db;
     SQLiteDatabase escrita;
     TextView txtTorneira, txtChuveiro, txtBebedouro, txtPrivada, txtDucha, txtBanheira, txtTanque, txtMC;

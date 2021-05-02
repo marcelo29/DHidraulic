@@ -1,38 +1,40 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     android:id="@+id/coordinatorLayout"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    tools:context=".MenuActivity">
-
-    <!--ImageView
-        android:id="@+id/imgArea"
-        android:layout_width="255dp"
-        android:layout_height="match_parent"
-        app:layout_constraintBottom_toTopOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@drawable/area" />
-
-    <ImageView
-        android:id="@+id/imgBanheiro"
-        android:layout_width="216dp"
-        android:layout_height="match_parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:srcCompat="@drawable/banheiro"
-        tools:ignore="MissingConstraints"
-        tools:layout_editor_absoluteY="340dp" />
-
-    <ImageView
-        android:id="@+id/imgCozinha"
-        android:layout_width="wrap_content"
-        android:layout_height="match_parent"
-        app:srcCompat="@drawable/cozinha"
-        tools:layout_editor_absoluteY="640dp"
-        tools:ignore="MissingConstraints" /-->
-
-    <android.support.v7.widget.RecyclerView
-        android:id="@+id/rv"
+    android:layout_height="match_parent">
+    <LinearLayout
+        android:orientation="vertical"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"/>
-</LinearLayout>
+        android:layout_height="match_parent">
+        <Button
+            android:id="@+id/btnAreaServico"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:background="@color/colorPrimary"
+            android:drawableBottom="@drawable/area"
+            android:text="@string/area_servico"
+            android:textColor="@android:color/background_light" />
+
+        <Button
+            android:id="@+id/btnBanheiro"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:background="@color/colorPrimary"
+            android:drawableBottom="@drawable/banheiro"
+            android:text="@string/banheiro"
+            android:textColor="@android:color/background_light" />
+
+        <Button
+            android:id="@+id/btnCozinha"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:background="@color/colorPrimary"
+            android:drawableBottom="@drawable/cozinha"
+            android:text="@string/cozinha"
+            android:textColor="@android:color/background_light" />
+    </LinearLayout>
+</ScrollView>

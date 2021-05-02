@@ -17,7 +17,7 @@ public class Db extends SQLiteOpenHelper {
     // nome do banco
     public static final String DATABASE = "db_hidraulic";
     // versao
-    public static final int VERSAO = 11;
+    public static final int VERSAO = 12;
     // para exibicao no log cat
     private static final String TAG = "appHidraulic";
 

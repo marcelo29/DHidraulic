@@ -27,4 +27,5 @@
     <string name="aviso_banheiros_corretos">Tem certeza que já configurou todos os banheiros corretamente ?</string>
     <string name="aviso_banheiro_atualizado">Esse banheiro foi atualizado!</string>
     <string name="aviso_banheiro_salvo">Banheiro salvo com sucesso.</string>
+    <string name="area_servico">Área de serviço</string>
 </resources>
