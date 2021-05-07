@@ -1,7 +1,7 @@
 package br.com.android.domain;
 
 public class Banheiro {
-    private int id, numTorneira, numPrivada, numDucha, numBanheira, numBebedouro, numTanque, numMC, numChuveiro;
+    private int id, numTorneira, numPrivada, numDucha, numBanheira, numMC, numChuveiro;
     private boolean valvula;
 
     public int getNumTorneira() {
@@ -34,22 +34,6 @@ public class Banheiro {
 
     public void setNumBanheira(int numBanheira) {
         this.numBanheira = numBanheira;
-    }
-
-    public int getNumBebedouro() {
-        return numBebedouro;
-    }
-
-    public void setNumBebedouro(int numBebedouro) {
-        this.numBebedouro = numBebedouro;
-    }
-
-    public int getNumTanque() {
-        return numTanque;
-    }
-
-    public void setNumTanque(int numTanque) {
-        this.numTanque = numTanque;
     }
 
     public int getNumMC() {

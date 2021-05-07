@@ -211,56 +211,11 @@
         </LinearLayout>
 
         <LinearLayout
-            android:id="@+id/llBebedouro"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            app:layout_constraintTop_toBottomOf="@id/llDucha"
-            tools:layout_editor_absoluteX="345dp">
-
-            <android.support.v7.widget.AppCompatImageView
-                android:id="@+id/imgBebedouro"
-                android:layout_width="176dp"
-                android:layout_height="115dp"
-                android:layout_marginTop="5dp"
-                app:srcCompat="@drawable/bebedouro" />
-
-            <android.support.design.widget.FloatingActionButton
-                android:id="@+id/fabAddBebedouro"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="5dp"
-                android:clickable="true"
-                android:foregroundGravity="bottom"
-                app:backgroundTint="@color/colorPrimary"
-                app:srcCompat="@drawable/baseline_add_white_18dp" />
-
-            <android.support.design.widget.FloatingActionButton
-                android:id="@+id/fabSubBebedouro"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="5dp"
-                android:layout_marginTop="5dp"
-                android:clickable="true"
-                app:backgroundTint="@color/colorPrimary"
-                app:srcCompat="@drawable/baseline_remove_white_18dp" />
-
-            <TextView
-                android:id="@+id/txtBebedouro"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:foregroundGravity="right"
-                android:paddingLeft="20dp"
-                android:text="0"
-                android:textSize="56sp" />
-        </LinearLayout>
-
-        <LinearLayout
             android:id="@+id/llBanheira"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
-            app:layout_constraintTop_toBottomOf="@id/llBebedouro"
+            app:layout_constraintTop_toBottomOf="@id/llDucha"
             tools:layout_editor_absoluteX="345dp">
 
             <android.support.v7.widget.AppCompatImageView
@@ -301,56 +256,11 @@
         </LinearLayout>
 
         <LinearLayout
-            android:id="@+id/llTanque"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            app:layout_constraintTop_toBottomOf="@id/llBanheira"
-            tools:layout_editor_absoluteX="345dp">
-
-            <android.support.v7.widget.AppCompatImageView
-                android:id="@+id/imgTanque"
-                android:layout_width="176dp"
-                android:layout_height="115dp"
-                android:layout_marginTop="5dp"
-                app:srcCompat="@drawable/tanque" />
-
-            <android.support.design.widget.FloatingActionButton
-                android:id="@+id/fabAddTanque"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="5dp"
-                android:clickable="true"
-                android:foregroundGravity="bottom"
-                app:backgroundTint="@color/colorPrimary"
-                app:srcCompat="@drawable/baseline_add_white_18dp" />
-
-            <android.support.design.widget.FloatingActionButton
-                android:id="@+id/fabSubTanque"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="5dp"
-                android:layout_marginTop="5dp"
-                android:clickable="true"
-                app:backgroundTint="@color/colorPrimary"
-                app:srcCompat="@drawable/baseline_remove_white_18dp" />
-
-            <TextView
-                android:id="@+id/txtTanque"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:foregroundGravity="right"
-                android:paddingLeft="20dp"
-                android:text="0"
-                android:textSize="56sp" />
-        </LinearLayout>
-
-        <LinearLayout
             android:id="@+id/llMC"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
-            app:layout_constraintTop_toBottomOf="@id/llTanque"
+            app:layout_constraintTop_toBottomOf="@+id/llBanheira"
             tools:layout_editor_absoluteX="345dp">
 
             <android.support.v7.widget.AppCompatImageView

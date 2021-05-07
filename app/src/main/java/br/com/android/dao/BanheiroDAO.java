@@ -23,7 +23,7 @@ public class BanheiroDAO extends SQLiteOpenHelper {
 
     }
 
-    public void insereBanheiro(Banheiro banheiro, SQLiteDatabase sqLiteDatabase) {
+    public void insereBanheiro1(Banheiro banheiro, SQLiteDatabase sqLiteDatabase) {
         ContentValues cv = new ContentValues();
 
         cv.put("num_banheiro", banheiro.getId());
@@ -32,10 +32,7 @@ public class BanheiroDAO extends SQLiteOpenHelper {
         cv.put("num_privadas", banheiro.getNumPrivada());
         cv.put("num_duchas", banheiro.getNumDucha());
         cv.put("num_banheira", banheiro.getNumBanheira());
-        cv.put("num_bebedouro", banheiro.getNumBebedouro());
-        cv.put("num_tanque", banheiro.getNumTanque());
         cv.put("num_MC", banheiro.getNumMC());
-        //cv.put("valvula", banheiro.isValvula());
 
         sqLiteDatabase.insert(Db.tbBanheiro, null, cv);
     }
@@ -43,7 +40,7 @@ public class BanheiroDAO extends SQLiteOpenHelper {
     public void atualizaBanheiro(Banheiro banheiro, SQLiteDatabase escrita) {
         String sql = "update banheiro set num_torneiras = " + banheiro.getNumTorneira() + ", num_chuveiros = " + banheiro.getNumChuveiro()
                 + ", num_privadas = " + banheiro.getNumPrivada() + ", num_duchas = " + banheiro.getNumDucha() + ", num_banheira = " + banheiro.getNumBanheira()
-                + ", num_bebedouro = " + banheiro.getNumBebedouro() + ", num_tanque = " + banheiro.getNumTanque() + ", num_MC = " + banheiro.getNumMC() + ", valvula = "
+                + ", num_bebedouro = " + ", num_tanque = " + ", num_MC = " + banheiro.getNumMC() + ", valvula = "
                 + banheiro.isValvula() + " where num_banheiro = " + banheiro.getId();
 
         escrita.execSQL(sql);
@@ -68,10 +65,8 @@ public class BanheiroDAO extends SQLiteOpenHelper {
             banheiro.setNumPrivada(cs.getInt(3));
             banheiro.setNumDucha(cs.getInt(4));
             banheiro.setNumBanheira(cs.getInt(5));
-            banheiro.setNumBebedouro(cs.getInt(6));
-            banheiro.setNumTanque(cs.getInt(7));
-            banheiro.setNumMC(cs.getInt(8));
-            banheiro.setValvula(cs.getInt(9) > 0);
+            banheiro.setNumMC(cs.getInt(6));
+            banheiro.setValvula(cs.getInt(7) > 0);
             return banheiro;
         } catch (Exception e) {
             return null;
@@ -81,7 +76,7 @@ public class BanheiroDAO extends SQLiteOpenHelper {
     }
 
     public boolean existeBanheiro(int id) {
-        String sql = "select from banheiro where num_banheiro = " + id;
+        String sql = "select * from banheiro where num_banheiro = " + id;
         Cursor cs = getReadableDatabase().rawQuery(sql, null);
 
         try {
